@@ -7,7 +7,9 @@ import (
 func main() {
 	// del_demo1_main()
 	// removeElement_demo1_main()
-	moveZeroes_demo1_main()
+	// moveZeroes_demo1_main()
+	// pivotIndex_demo1_main()
+	dominantIndex_demo1_main()
 }
 
 // 从排序数组中删除重复项
@@ -141,4 +143,54 @@ func moveZeroes_demo2(nums []int) {
 		}
 	}
 	fmt.Println("输出的数组：", nums)
+}
+
+// 寻找数组的中心索引
+func pivotIndex_demo1_main() {
+	nums := []int{1, 7, 3, 6, 5, 6}
+	fmt.Println("数组nums的中心索引是：", pivotIndex_demo1(nums))
+}
+
+func pivotIndex_demo1(nums []int) int {
+	var leftsum, rightsum int
+	var i int = len(nums) - 1
+	for j := 0; j < len(nums); j++ {
+		fmt.Println("两边的和：", leftsum, rightsum)
+		leftsum += nums[j]
+		rightsum += nums[i]
+		if leftsum == rightsum && leftsum != 0 {
+			return j
+		} else {
+			i--
+		}
+		if j == len(nums) {
+			return -1
+		}
+	}
+	return -1
+}
+
+func dominantIndex_demo1_main() {
+	nums := []int{3, 6, 1, 0}
+	dominantIndex_demo1_1(nums)
+}
+
+// 寻找数组中至少是其它数字两倍的最大数
+func dominantIndex_demo1_1(nums []int) int {
+	var max, min int
+	for j := 0; j < len(nums); j++ {
+		fmt.Println("增加后的数据：", j)
+		for k := 1; k < len(nums); k++ {
+			if nums[k] > nums[j] {
+				max = nums[k]
+				min = nums[j]
+			}
+			if min < nums[j] || max < nums[k] {
+				min = nums[j]
+				max = nums[k]
+			}
+		}
+	}
+	fmt.Println("最大值和最小值分别是：", min, max)
+	return 1
 }

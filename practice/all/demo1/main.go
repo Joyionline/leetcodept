@@ -1,13 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strconv"
+	"strings"
+)
 
 /*
 	Leetcode题
 */
 
 func main() {
-	dmeo1_1()
+	// dmeo1_1()
+	demo1_isPalindrome_main()
 }
 
 /*
@@ -45,8 +51,68 @@ func dmeo1_1() {
 */
 
 func demo1_2() {
-	var num1, num2 *int
-	for i := 0; i < 8 i++ {
+	// var num1, num2 *int
+	for i := 0; i < 8; i++ {
 
 	}
+}
+
+/*
+	回文数判断一个整数是否是回文数。
+	回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+
+*/
+
+func demo1_isPalindrome_main() {
+	fmt.Println(isPalindrome(0121))
+}
+
+func isPalindrome(x int) bool {
+	if x < 0 { // 当这个数为负数时一定不是回文数
+		return false
+	}
+	var num int
+	var tmp int = x
+	for x != 0 {
+		num = num*10 + x%10
+		x = x / 10
+	}
+	if num > math.MaxInt32 || num < math.MinInt32 {
+		return false
+	}
+	if tmp != num {
+		return false
+	}
+	return true
+}
+
+//
+func isPalindrome2(x int) bool {
+	if x < 0 { // 当这个数为负数时一定不是回文数
+		return false
+	}
+	var num int
+	var tmp int = x
+	var ok bool
+	for x != 0 {
+		num = num*10 + x%10
+		x = x / 10
+	}
+	if num > math.MaxInt32 || num < math.MinInt32 {
+		return false
+	}
+	was1 := strings.Split(strconv.Itoa(tmp), "")
+	was2 := strings.Split(strconv.Itoa(num), "")
+	if len(was1) == len(was2) {
+		var j int = len(was2) - 1
+		for i := 0; i < len(was1); i++ {
+			if was1[i] == was2[j] {
+				ok = true
+			} else {
+				ok = false
+			}
+			j--
+		}
+	}
+	return ok
 }
