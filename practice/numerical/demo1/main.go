@@ -86,3 +86,15 @@ func numerical_demo1_3(x int) (num int) {
 	return nums
 
 }
+
+/*
+	报数：
+*/
+func demo1_countAndSay_main() {
+	countAndSay(0)
+}
+
+// 报数
+func countAndSay(n int) string {
+	return ""
+}

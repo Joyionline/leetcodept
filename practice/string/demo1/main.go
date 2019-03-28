@@ -7,7 +7,9 @@ import (
 
 func main() {
 	// fmt.Println(lengthOfLongestSubstring("cb"))
-	demo1_strStr_1()
+	// demo1_strStr_1()
+	demo1_lengthOfLastWord_main()
+
 }
 
 /*
@@ -171,4 +173,31 @@ func strStr(haystack string, needle string) int {
 	i := strings.Index(haystack, needle)
 	fmt.Println("i", i)
 	return i
+}
+
+/*
+	最后一个单词的长度
+*/
+func demo1_lengthOfLastWord_main() {
+	// s := "Hello World"
+	// s := "a "
+	s := "b   a    "
+	fmt.Println(lengthOfLastWord(s))
+}
+
+func lengthOfLastWord(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	length := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == ' ' && length == 0 {
+			continue
+		} else if s[i] == ' ' {
+			break
+		} else {
+			length++
+		}
+	}
+	return length
 }
