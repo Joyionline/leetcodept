@@ -8,7 +8,8 @@ import (
 func main() {
 	// fmt.Println(lengthOfLongestSubstring("cb"))
 	// demo1_strStr_1()
-	demo1_lengthOfLastWord_main()
+	// demo1_lengthOfLastWord_main()
+	// demo1_reverseString_main()
 
 }
 
@@ -200,4 +201,40 @@ func lengthOfLastWord(s string) int {
 		}
 	}
 	return length
+}
+
+/*
+	反转字符串
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+
+*/
+
+func demo1_reverseString_main() {
+	var s = []byte("hello")
+	reverseString(s)
+}
+
+func reverseString(s []byte) {
+	if len(s) < 2 {
+		fmt.Println(s)
+	}
+	var i int = len(s) - 1
+	fmt.Println("当前的字符串：", s, len(s), i)
+	var tmp byte
+	for j := 0; j < len(s); j++ {
+		if j > len(s)/2 {
+			break
+		}
+		tmp = s[j]
+		fmt.Println(s[j], s[i])
+		fmt.Printf("第%d次处理后的%s：", j, s)
+		s[j] = s[i]
+		s[i] = tmp
+		i--
+	}
+	fmt.Println("处理之后的字符串：", string(s))
 }
