@@ -10,6 +10,7 @@ func main() {
 	// demo1_strStr_1()
 	// demo1_lengthOfLastWord_main()
 	// demo1_reverseString_main()
+	demo1_reverseWord_1_main()
 
 }
 
@@ -214,6 +215,7 @@ func lengthOfLastWord(s string) int {
 */
 
 func demo1_reverseString_main() {
+	// s := []byte{'h', 'e', 'l', 'l', 'o'}
 	var s = []byte("hello")
 	reverseString(s)
 }
@@ -226,7 +228,7 @@ func reverseString(s []byte) {
 	fmt.Println("当前的字符串：", s, len(s), i)
 	var tmp byte
 	for j := 0; j < len(s); j++ {
-		if j > len(s)/2 {
+		if j >= len(s)/2 {
 			break
 		}
 		tmp = s[j]
@@ -237,4 +239,52 @@ func reverseString(s []byte) {
 		i--
 	}
 	fmt.Println("处理之后的字符串：", string(s))
+}
+
+/*
+给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+示例 1:
+输入: "Let's take LeetCode contest"
+输出: "s'teL ekat edoCteeL tsetnoc"
+
+*/
+
+func demo1_reverseWord_1_main() {
+	s := "Let's take  LeetCode  contest"
+	reverseWords(s)
+}
+
+func reverseWords(s string) string {
+	if len(s) < 2 {
+		return s
+	}
+	strarr := strings.Split(s, " ")
+	var newstr string
+	for j := 0; j < len(strarr); j++ {
+		if len(strarr[j]) == 0 {
+			continue
+		}
+		fmt.Println("分割后的字符串：", strarr[j], len(strarr[j]))
+		str := []byte(strarr[j])
+		var i int = len(str) - 1
+		var tmp byte
+		for k := 0; k < len(str); k++ {
+			if k >= len(str)/2 {
+				break
+			}
+			tmp = str[k]
+			str[k] = str[i]
+			str[i] = tmp
+			i--
+			fmt.Println("才处理中：", string(str[k]))
+			fmt.Println("-------", string(str))
+		}
+		if len(newstr) == 0 {
+			newstr = newstr + string(str)
+		} else {
+			newstr = newstr + " " + string(str)
+		}
+	}
+	fmt.Println("处理后的切片：", newstr)
+	return ""
 }
