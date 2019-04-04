@@ -8,8 +8,8 @@ func main() {
 	// del_demo1_main()
 	// removeElement_demo1_main()
 	// moveZeroes_demo1_main()
-	// pivotIndex_demo1_main()
-	dominantIndex_demo1_main()
+	pivotIndex_demo1_main()
+	// dominantIndex_demo1_main()
 }
 
 // 从排序数组中删除重复项
@@ -147,24 +147,32 @@ func moveZeroes_demo2(nums []int) {
 
 // 寻找数组的中心索引
 func pivotIndex_demo1_main() {
-	nums := []int{1, 7, 3, 6, 5, 6}
+	// 测试用例  {1, 7, 3, 6, 5, 6}  {1, 2, 3}
+	nums := []int{-1, -1, -1, 0, 1, 1}
 	fmt.Println("数组nums的中心索引是：", pivotIndex_demo1(nums))
 }
 
 func pivotIndex_demo1(nums []int) int {
-	var leftsum, rightsum int
-	var i int = len(nums) - 1
-	for j := 0; j < len(nums); j++ {
-		fmt.Println("两边的和：", leftsum, rightsum)
-		leftsum += nums[j]
-		rightsum += nums[i]
-		if leftsum == rightsum && leftsum != 0 {
-			return j
-		} else {
-			i--
+	if len(nums) <= 2 {
+		return -1
+	}
+	var leftsum int
+	for i := 0; i < len(nums); i++ {
+		var rightsum int
+		for j := i + 1; j < len(nums); j++ {
+			rightsum = rightsum + nums[j]
 		}
-		if j == len(nums) {
-			return -1
+		if i != 0 {
+			leftsum = leftsum + nums[i-1]
+		}
+		fmt.Println("当前左边和是:", leftsum)
+		fmt.Println("当前右边和是:", rightsum)
+		if leftsum == rightsum {
+			fmt.Println("当前索引：", i)
+			return i
+			break
+		} else {
+			continue
 		}
 	}
 	return -1
