@@ -13,7 +13,8 @@ import (
 
 func main() {
 	// dmeo1_1()
-	demo1_isPalindrome_main()
+	// demo1_isPalindrome_main()
+	demo1_getSum_1_main()
 }
 
 /*
@@ -115,4 +116,26 @@ func isPalindrome2(x int) bool {
 		}
 	}
 	return ok
+}
+
+/*
+两整数之和：
+不使用运算符 + 和 - ​​​​​​​，计算两整数 ​​​​​​​a 、b ​​​​​​​之和。
+
+*/
+
+func demo1_getSum_1_main() {
+	fmt.Println(getSum(1, 4))
+}
+
+func getSum(a int, b int) int {
+	if a == 0 {
+		return b
+	}
+	if b == 0 {
+		return a
+	}
+	var sum int
+	sum = a & b
+	return getSum(a^b, sum<<1)
 }
