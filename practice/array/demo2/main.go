@@ -2,12 +2,16 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
 	// demo2_searchInsert_1()
 	// demo2_plusOne_1_main()
-	demo2_containsDuplicate_1_main()
+	// demo2_containsDuplicate_1_main()
+	// demo2_containsNearbyDuplicate_1_main()
+	// demo2_thirdMax_main()
+	demo2_findKthLargest_main()
 }
 
 /*
@@ -95,4 +99,99 @@ func containsDuplicate(nums []int) bool {
 		return false
 	}
 	return true
+}
+
+/*
+给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，
+使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。
+
+*/
+
+func demo2_containsNearbyDuplicate_1_main() {
+	nums := []int{0, 1, 1, 1}
+	k := 1
+	fmt.Println("result：", containsNearbyDuplicate(nums, k))
+}
+
+func containsNearbyDuplicate(nums []int, k int) bool {
+	var tmp int
+	// nm := make(map[int]int, 0)
+	// s := make([]int, 0)
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] == nums[j] {
+				if tmp == 0 {
+					tmp = i
+				}
+				tmp += j
+			}
+		}
+	}
+	fmt.Println("当前的tmp是：", tmp)
+	/* 	for j := 0; j < len(nums); j++ {
+		if _, ok := nm[nums[i]]; ok {
+			s = append(s, i)
+		}
+		nm[nums[i]] = i
+	} */
+
+	// fmt.Println("存在元素的索引是：", s)
+	return true
+}
+
+/*
+找到第三个最大的数
+给定一个非空数组，返回此数组中第三大的数。
+如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
+
+*/
+
+func demo2_thirdMax_main() {
+	// 测试用例[1,3,5,6,6,1] {2, 2, 3, 1}
+	nums := []int{1, 3, 5, 6, 6, 1}
+	fmt.Println("当前数组中第三大值是：", thirdMax(nums))
+}
+
+func thirdMax(nums []int) int {
+	n := make([]int, 0) // 初始化空切片
+	sort.Ints(nums)     // 对原始数组进行排序 使得不相邻的两个相等的数可以相邻排列
+	i := 0
+	n = append(n, nums[0])
+	for j := 1; j < len(nums); j++ {
+		if nums[i] != nums[j] {
+			n = append(n, nums[j])
+			i++
+			nums[i] = nums[j]
+		}
+	}
+	ln := len(n)
+	if ln <= 2 {
+		return n[ln-1]
+	}
+	return n[ln-3]
+}
+
+/*
+	数组中的第K个最大元素
+	在未排序的数组中找到第 k 个最大的元素。
+	请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+
+	考虑只有一个元素的情况
+*/
+
+func demo2_findKthLargest_main() {
+	// 测试用例  输入: [3,2,1,5,6,4] 和 k = 2  输出: 5  输入: [3,2,3,1,2,4,5,5,6] 和 k = 4 输出: 4 ; {1} out:1
+	//   in: {2,1} out: {2}
+	nums := []int{1, 3}
+	k := 3
+	fmt.Printf("当前数组中第%d大的数是: %d\n", k, findKthLargest(nums, k))
+}
+
+func findKthLargest(nums []int, k int) int {
+	ln := len(nums)
+	if ln == 1 {
+		return nums[0]
+	}
+	sort.Ints(nums)
+	return nums[ln-k]
 }
