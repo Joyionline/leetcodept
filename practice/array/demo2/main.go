@@ -11,7 +11,9 @@ func main() {
 	// demo2_containsDuplicate_1_main()
 	// demo2_containsNearbyDuplicate_1_main()
 	// demo2_thirdMax_main()
-	demo2_findKthLargest_main()
+	// demo2_findKthLargest_main()
+	// demo2_findMaxConsecutiveOnes_main()
+	demo2_longestOnes_main()
 }
 
 /*
@@ -194,4 +196,91 @@ func findKthLargest(nums []int, k int) int {
 	}
 	sort.Ints(nums)
 	return nums[ln-k]
+}
+
+/*
+	最大连续1的个数
+
+*/
+
+func demo2_findMaxConsecutiveOnes_main() {
+	// 测试用例；{1,0,1,1,0,1},{1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 8}
+	// {1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1}
+	// {1}
+	nums := []int{1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0}
+	fmt.Println("当前数组中最大连续1的个数是：", findMaxConsecutiveOnes(nums))
+}
+
+func findMaxConsecutiveOnes(nums []int) int {
+	var count, ic int
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == 1 {
+			ic++
+			// 以下判断加在此避免漏掉第一个数即为符合值
+			if ic >= count {
+				count = ic
+			}
+		} else {
+			ic = 0
+		}
+	}
+	fmt.Println("当前值是：", count)
+	return count
+}
+
+/*
+	TODO: to be continued
+	最大连续1的个数 III
+	示例 1：
+	输入：A = [1,1,1,0,0,0,1,1,1,1,0], K = 2
+	输出：6
+	解释：
+	[1,1,1,0,0,1,1,1,1,1,1]
+	粗体数字从 0 翻转到 1，最长的子数组长度为 6。
+	示例 2：
+
+	输入：A = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], K = 3
+	输出：10
+	解释：
+	[0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+	粗体数字从 0 翻转到 1，最长的子数组长度为 10。
+*/
+
+func demo2_longestOnes_main() {
+	nums := []int{1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0}
+	k := 2
+	fmt.Println("该数组中最长的子数组长度为：", longestOnes(nums, k))
+}
+
+func longestOnes(A []int, K int) int {
+	Tmp := make([]int, 0)
+	var count, max int
+	var num int
+	for i := 0; i < len(A); i++ {
+		for j := 0; j < len(A); j++ {
+			if A[j] == 0 && num <= K {
+				A[j] = 1
+				num++
+				Tmp = append(Tmp, j)
+			}
+			if num == K {
+				break
+			}
+		}
+		fmt.Println("修改的结果：", A)
+		if A[i] == 1 {
+			max++
+			if max >= count {
+				count = max
+			}
+		} else {
+			max = 0
+		}
+		fmt.Println("shdfnsndfionsdf:", Tmp)
+		for n := 0; n < len(Tmp); n++ {
+			A[Tmp[n]] = 0
+		}
+		fmt.Println("当前更新的数据：", A)
+	}
+	return count
 }
