@@ -67,9 +67,9 @@ func demo2_plusOne_1_main() {
 func plusOne(digits []int) []int {
 	for i := len(digits) - 1; i >= 0; i-- {
 		if digits[i] == 9 {
-			digits[i] = 0
+			digits[i] = 0 // 末位变0，将遍历到上一个位置
 		} else {
-			digits[i] += 1
+			digits[i] += 1 // 将该位+1后直接返回
 			return digits
 		}
 	}
