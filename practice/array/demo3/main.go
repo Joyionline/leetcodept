@@ -8,7 +8,9 @@ import (
 func main() {
 	// demo3_dominantIndex_main()
 	// demo3_PrintArray_main()
-	demo3_findDiagonalOrder_main()
+	// demo3_findDiagonalOrder_main()
+	// demo3_findRestaurant_main()
+	demo3_findLHS_main()
 }
 
 /*
@@ -126,4 +128,112 @@ func minSubArrayLen(s int, nums []int) int {
 	} */
 
 	return 0
+}
+
+/*
+	两个列表的最小索引总和
+	假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，
+	每个餐厅的名字用字符串表示。
+	你需要帮助他们用最少的索引和找出他们共同喜爱的餐厅。
+	如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。
+
+	输入:
+	["Shogun", "Tapioca Express", "Burger King", "KFC"]
+	["Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"]
+	输出: ["Shogun"]
+	解释: 他们唯一共同喜爱的餐厅是“Shogun”。
+*/
+
+func demo3_findRestaurant_main() {
+	/*
+		测试用例：
+		{"Shogun", "Tapioca Express", "Burger King", "KFC"} || {"KFC", "Shogun", "Burger King"}
+
+	*/
+	list1 := []string{"Shogun", "Tapioca Express", "Burger King", "KFC"}
+	list2 := []string{"KFC", "Burger King", "Tapioca Express", "Shogun"}
+	rlist := findRestaurant(list1, list2)
+	fmt.Println("他们两个共同的餐厅是：", rlist)
+}
+
+func findRestaurant(list1 []string, list2 []string) []string {
+	var common []string
+	var index int
+	for i := 0; i < len(list1); i++ {
+		for j := 0; j < len(list2); j++ {
+			if list1[i] == list2[j] {
+				if index == 0 && len(common) == 0 {
+					index = i + j
+					common = append(common, list1[i])
+				} else {
+					if i+j == index {
+						common = append(common, list1[i])
+					}
+				}
+
+			}
+		}
+	}
+	return common
+}
+
+/*
+	TODO： to be coutinued
+	最长的和谐子序列
+	和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
+	现在，给定一个整数数组，你需要在所有可能的子序列中找到最长的和谐子序列的长度。
+	示例 1:
+
+	输入: [1,3,2,2,5,2,3,7]
+	输出: 5
+	原因: 最长的和谐数组是：[3,2,2,2,3].
+*/
+
+func demo3_findLHS_main() {
+	//  测试用例：{1, 3, 2, 2, 5, 2, 3, 7}  {1,2,3,4}
+	nums := []int{1, 2, 3, 4}
+	fmt.Println("最长的和谐数组长度是：", findLHS(nums))
+}
+
+func findLHS(nums []int) int {
+	sort.Ints(nums)
+	var newslice []int
+	var recount, max, lastnum int
+	for i := 0; i < len(nums); i++ {
+		newslice = append(newslice, nums[i])
+		if nums[i] == lastnum && i > 0 {
+			if max >= recount {
+				max++
+				recount = max
+				newslice = append(newslice, nums[i])
+			} else {
+				recount++
+			}
+		} else {
+			newslice = nil
+			max = 0
+			newslice = append(newslice, nums[i])
+			recount = len(newslice)
+		}
+		lastnum = nums[i]
+	}
+	if len(newslice) > 0 {
+		var countone, counttwo int
+		for j := 0; j < len(nums); j++ {
+			if nums[j] == newslice[0]-1 {
+				countone++
+			}
+			if nums[j] == newslice[0]+1 {
+				counttwo++
+			}
+		}
+		if countone > counttwo {
+			recount += countone
+		} else if countone < counttwo {
+			recount += counttwo
+		} else {
+			recount += countone
+		}
+	}
+	return recount
 }
