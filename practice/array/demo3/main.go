@@ -10,7 +10,8 @@ func main() {
 	// demo3_PrintArray_main()
 	// demo3_findDiagonalOrder_main()
 	// demo3_findRestaurant_main()
-	demo3_findLHS_main()
+	// demo3_findLHS_main()
+	demo3_search_main()
 }
 
 /*
@@ -236,4 +237,29 @@ func findLHS(nums []int) int {
 		}
 	}
 	return recount
+}
+
+func demo3_search_main() {
+	nums := []int{-1, 0, 3, 5, 9, 12}
+	target := 0
+	fmt.Println("target所在的下标为：", search(nums, target))
+}
+
+func search(nums []int, target int) int {
+	var count int
+	var min, hign int = 0, len(nums) - 1
+	for min <= hign {
+		midindex := (min + hign) / 2
+		guess := nums[midindex]
+		if guess == target {
+			return midindex
+		}
+		if guess > target {
+			hign = midindex - 1
+		} else {
+			min = midindex + 1
+		}
+		count++
+	}
+	return -1
 }
