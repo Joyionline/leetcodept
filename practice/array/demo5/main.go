@@ -119,15 +119,15 @@ func maxProfit_2(prices []int) int {
 	当今天的价格比昨天高时就卖出昨天的，买入今天的。
 */
 func maxProfit_2_1(prices []int) int {
-	var get, in, out int
+	var maxprofit, in, out int
 	for i := 1; i < len(prices); i++ {
 		if prices[i] > prices[i-1] {
 			out = prices[i]
 			in = prices[i]
-			get += prices[i] - prices[i-1]
+			maxprofit += prices[i] - prices[i-1]
 		}
 		fmt.Println("当前买入的价格是：", in)
 		fmt.Println("当前卖出的价格是：", out)
 	}
-	return get
+	return maxprofit
 }
