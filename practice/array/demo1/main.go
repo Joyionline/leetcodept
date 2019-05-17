@@ -7,8 +7,8 @@ import (
 func main() {
 	// del_demo1_main()
 	// removeElement_demo1_main()
-	// moveZeroes_demo1_main()
-	pivotIndex_demo1_main()
+	moveZeroes_demo1_main()
+	// pivotIndex_demo1_main()/
 	// dominantIndex_demo1_main()
 }
 
