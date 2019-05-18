@@ -14,7 +14,8 @@ import (
 func main() {
 	// dmeo1_1()
 	// demo1_isPalindrome_main()
-	demo1_getSum_1_main()
+	// demo1_getSum_1_main()
+	demo1_fib_main()
 }
 
 /*
@@ -138,4 +139,58 @@ func getSum(a int, b int) int {
 	var sum int
 	sum = a & b
 	return getSum(a^b, sum<<1)
+}
+
+/*
+	斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。
+		该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+	F(0) = 0,   F(1) = 1
+	F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
+	给定 N，计算 F(N)。
+
+	示例 1：
+	输入：2
+	输出：1
+	解释：F(2) = F(1) + F(0) = 1 + 0 = 1.
+
+	示例 2：
+	输入：3
+	输出：2
+	解释：F(3) = F(2) + F(1) = 1 + 1 = 2.
+
+	示例 3：
+	输入：4
+	输出：3
+	解释：F(4) = F(3) + F(2) = 2 + 1 = 3.
+*/
+
+/*
+ 2 3 4 5 6 7
+ 1 2 3 5 8 13
+*/
+func demo1_fib_main() {
+	fmt.Println("递归法运算结果：", fib_recursive(6))
+	fmt.Println("迭代法运算结果：", fib_interation(6))
+}
+
+// 递归法
+func fib_recursive(N int) int {
+	if N <= 1 {
+		return N
+	}
+	return fib_recursive(N-1) + fib_recursive(N-2)
+}
+
+// 迭代法
+func fib_interation(N int) int {
+	if N <= 1 {
+		return N
+	}
+	var pre, next, result int = 0, 1, 0
+	for i := 2; i <= N; i++ {
+		result = pre + next
+		pre = next
+		next = result
+	}
+	return result
 }
