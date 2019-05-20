@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+//TODO today
+
 func main() {
 	demo1_reverseList()
 }
@@ -23,14 +25,22 @@ func demo1_reverseList() {
 }
 
 // 链表反转
+/*
+	整个循环过程分析：
+	1  nil 1 2 3 4 5 >> 2 3 4 5 1 nil
+	2  2 3 4 5 1 nil >> 3 4 5 1 2 nil
+	3  3 4 5 1 2 nil >> 4 5 1 2 3 nil
+	4  4 5 1 2 3 nil >> 5 1 2 3 4 nil
+	5  5 1 2 3 4 nil >> 1 2 3 4 5 nil
+*/
 func reverseList(head *ListNode) *ListNode {
 	var pre *ListNode
 	var cur = head
 	for cur != nil {
-		nexttemp := cur.Next
-		cur.Next = pre
-		pre = cur
-		cur = nexttemp
+		nexttemp := cur.Next // 以当前为h1, 下一个为h2 作为临时数据
+		cur.Next = pre       // 当前的下一个值指向前一个，即当前前一个为pre,即 nil
+		pre = cur            // 将当前的值赋值给前一个值 将nil 向后转移
+		cur = nexttemp       // 将之前缓存的下一个赋值给当前
 		// pre, cur, cur.Next = cur, cur.Next, pre
 	}
 	return pre
