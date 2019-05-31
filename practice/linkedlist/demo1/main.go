@@ -46,6 +46,15 @@ func reverseList(head *ListNode) *ListNode {
 	return pre
 }
 
+func reverseList_2(head *ListNode) *ListNode {
+	var pre *ListNode
+	cur := head
+	for cur != nil {
+		pre, cur, cur.Next = cur, cur.Next, pre
+	}
+	return pre
+}
+
 // 插入数据
 func InsertData() {
 	h1 := new(ListNode)
@@ -64,6 +73,7 @@ func InsertData() {
 	h4.Next = h5
 
 	fmt.Println("当前链表数据是：", h1)
-	pre := reverseList(h1)
+	// pre := reverseList(h1)
+	pre := reverseList_2(h1)
 	fmt.Println("反转后的链表数据：", pre)
 }
