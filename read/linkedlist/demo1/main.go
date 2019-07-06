@@ -25,7 +25,8 @@ func demo1_List_main() {
 	head.Next = L2
 	L2.Next = L3
 	fmt.Printf("当前链表数据是：%v\n", head.Val)
-	fmt.Println("经过反转后的链表", reverserList(head).Val)
+	// fmt.Println("经过反转后的链表", reverserList(head))
+	fmt.Println("链表反转2数据：", reverseList2(head))
 }
 
 /*
@@ -43,4 +44,14 @@ func reverserList(head *ListNode) *ListNode {
 		curr = nextTemp
 	}
 	return prev
+}
+
+// 链表反转
+func reverseList2(head *ListNode) *ListNode {
+	var pre *ListNode
+	cur := head
+	for cur != nil {
+		pre, cur, cur.Next = cur, cur.Next, pre
+	}
+	return pre
 }

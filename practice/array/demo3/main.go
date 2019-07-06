@@ -241,8 +241,8 @@ func findLHS(nums []int) int {
 
 func demo3_search_main() {
 	nums := []int{-1, 0, 3, 5, 9, 12}
-	target := 0
-	fmt.Println("target所在的下标为：", search(nums, target))
+	target := 444
+	fmt.Println("target所在的下标为：", search_2(nums, target))
 }
 
 func search(nums []int, target int) int {
@@ -256,6 +256,37 @@ func search(nums []int, target int) int {
 		}
 		if guess > target {
 			hign = midindex - 1
+		} else {
+			min = midindex + 1
+		}
+		count++
+	}
+	return -1
+}
+
+// 暴力查找法 时间复杂度O(n)
+func search_1(nums []int, target int) int {
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == target {
+			return i
+		}
+	}
+	return -1
+}
+
+// 二分查找 O(logn)
+func search_2(nums []int, target int) int {
+	var count int
+	var min, max int = 0, len(nums) - 1
+
+	for min <= max {
+		midindex := (min + max) / 2
+		guess := nums[midindex]
+		if guess == target {
+			return midindex
+		}
+		if guess > target {
+			max = midindex - 1
 		} else {
 			min = midindex + 1
 		}
